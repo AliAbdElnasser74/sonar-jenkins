@@ -21,22 +21,28 @@ pipeline{
         }
         stage('SonarQube Analysis') {
             steps{
+                dir('git-depi-main'){
                 sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Depi -Dsonar.projectName='Depi'"    
                 }
+            }
         }
         stage("Build Application") {
             steps {
                 script {
+                    dir('git-depi-main') {
                     def mavenFuns = new io.depi.maven()
                     mavenFuns.JavaBuild("-DskipTests")
+                    }
                 }
             }
         }
         stage("Test Application") {
             steps {
                 script {
+                    dir('git-depi-main') {
                     def mavenFuns = new io.depi.maven()
                     mavenFuns.JavaTest("")
+                    }
                 }
             }
         }
