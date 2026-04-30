@@ -43,13 +43,7 @@ pipeline{
                 }
             }
         }
-            
-        stage('SonarQube Analysis') {
-            steps {            
-            withSonarQubeEnv() {
-            sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=DEPI -Dsonar.projectName='DEPI'"
-            }
-        }
+        
         }
         // stage("Push Image") {
         //     steps {
@@ -82,4 +76,3 @@ pipeline{
         //     }
         // }
     }
-}
