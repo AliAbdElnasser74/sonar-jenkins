@@ -14,6 +14,11 @@ pipeline{
         DEPI_ROUND = "R4"
     }
     stages {
+        stage('Checkout Code') {
+            steps {
+                checkout scm 
+            }
+        }
         stage('SonarQube Analysis') {
             steps{
                 sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Depi -Dsonar.projectName='Depi'"    
