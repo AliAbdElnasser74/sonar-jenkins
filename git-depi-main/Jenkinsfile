@@ -51,8 +51,10 @@ pipeline{
         stage("Build Docker Image") {
             steps {
                 script{
+                     dir('git-depi-main') {
                     def dockerFuns = new io.depi.docker()
                     dockerFuns.build("hassaneid/depi-java", "v${BUILD_NUMBER}")
+                    }
                 }
             }
         }
