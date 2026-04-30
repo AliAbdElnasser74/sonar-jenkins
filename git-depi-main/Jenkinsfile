@@ -21,6 +21,8 @@ pipeline{
         }
         stage('SonarQube Analysis') {
             steps{
+                withSonarQubeEnv(credentialsId: 'sonarqube-text') {
+                }
                 dir('git-depi-main'){
                 sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Depi -Dsonar.projectName='Depi'"    
                 }
