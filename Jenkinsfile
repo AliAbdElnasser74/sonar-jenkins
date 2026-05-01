@@ -29,30 +29,24 @@ pipeline{
         stage("Build Application") {
             steps {
                 script {
-                    dir('git-depi-main') {
                     def mavenFuns = new io.depi.maven()
                     mavenFuns.JavaBuild("-DskipTests")
-                    }
                 }
             }
         }
         stage("Test Application") {
             steps {
                 script {
-                    dir('git-depi-main') {
                     def mavenFuns = new io.depi.maven()
                     mavenFuns.JavaTest("")
-                    }
                 }
             }
         }
         stage("Build Docker Image") {
             steps {
                 script{
-                     dir('git-depi-main') {
                     def dockerFuns = new io.depi.docker()
                     dockerFuns.build("hassaneid/depi-java", "v${BUILD_NUMBER}")
-                    }
                 }
             }
         }
