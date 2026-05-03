@@ -1,0 +1,37 @@
+@Library('slj-depi ')_
+
+pipeline {
+    agent any
+
+    tools {
+        jdk 'jdk-11'
+        maven 'mvn-3-5-4'
+    }
+
+    stages {
+        stage('Build java') {
+            steps {
+                script {
+                    def ali = new com.depi.mvnClass()
+                    ali.packageJar("-DskipTests")
+                }
+            }
+        }
+        stage('Test java') {
+            steps {
+                script {
+                    def ali = new com.depi.mvnClass()
+                    ali.testJar()
+                }
+            }
+        }
+        stage('Build docker') {
+            steps {
+                script {
+                    def dockerAli = new com.depi.dockerClass()
+                    dockerAli.dockerBuild("hassaneid/depi-java", "v${BUILD_NUMBER}")
+                }
+            }
+        }
+    }
+}
