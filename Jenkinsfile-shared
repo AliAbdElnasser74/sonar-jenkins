@@ -1,4 +1,4 @@
-@Library('slj-depi ')_
+@Library('depi')_
 
 pipeline {
     agent any
