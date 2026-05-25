@@ -1,4 +1,4 @@
-@Library('depi-r4')_
+@Library('slj-depi')_
 
 pipeline{
     agent {
@@ -19,13 +19,14 @@ pipeline{
                 checkout scm 
             }
         }
-        stage('SonarQube Analysis') {
-            steps{
-                withSonarQubeEnv(credentialsId: 'sonar', installationName: 'SonarQube') {
-                    sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Depi -Dsonar.projectName='Depi'"
-                }
-            }
         }
+        #stage('SonarQube Analysis') {
+        #    steps{
+         #       withSonarQubeEnv(credentialsId: 'sonar', installationName: 'SonarQube') {
+          #          sh "mvn clean verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=Depi -Dsonar.projectName='Depi'"
+           #     }
+            #}
+        #}
         stage("Build Application") {
             steps {
                 script {
